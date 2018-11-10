@@ -11,6 +11,9 @@ class Enemy extends GameImage {
         this.speed = randomBetween(2, 5)
         this.x = randomBetween(0, 350)
         this.y = -randomBetween(0, 200)
+
+        this.speed = 10
+        this.cooldown = 9
     }
 
     moveLeft() {
