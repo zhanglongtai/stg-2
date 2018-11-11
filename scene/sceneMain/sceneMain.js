@@ -11,42 +11,54 @@ class SceneMain extends Scene {
         this.skys = Skys.new(this.game)
         this.addElement(this.skys)
 
-        this.pipes = Pipes.new(this.game)
-        this.addElement(this.pipes)
+        this.player = Player.new(this.game, this)
+        this.player.x = 100
+        this.player.y = 500
+        this.addElement(this.player)
 
-        this.lands = Lands.new(this.game)
-        this.addElement(this.lands)
+        this.enemyNum = 1
+        this.enemies = []
+        this.addEnemies()
+    }
 
-        this.bird = Bird.new(this.game)
-        this.addElement(this.bird)
+    addEnemies() {
+        // less than 3 enemy in a row
+        const positionList = []
+
+        const es = []
+        for (let i = 0; i < this.enemyNum; i++) {
+            const e = Enemy.new(this.game, this)
+            es.push(e)
+            this.addElement(e)
+        }
+
+        this.enemies = es
     }
 
     setInputs() {
-        const bird = this.bird
-
         this.game.registerAction('ArrowLeft', (keyState) => {
-            bird.move(-bird.speed, keyState)
+            this.player.moveLeft()
         })
-
+    
         this.game.registerAction('ArrowRight', (keyState) => {
-            bird.move(bird.speed, keyState)
+            this.player.moveRight()
+        })
+    
+        this.game.registerAction('ArrowUp', (keyState) => {
+            this.player.moveUp()
         })
 
-        this.game.registerAction('ArrowUp', (keyState) => {
-            bird.jump()
+        this.game.registerAction('ArrowDown', (keyState) => {
+            this.player.moveDown()
+        })
+
+        this.game.registerAction(' ', (keyState) => {
+            this.player.fire()
         })
     }
 
     update() {
         super.update()
-
-        // game over
-        for (const p of this.pipes.pipeList) {
-            if (this.pipes.collide(p, this.bird)) {
-                const sceneEnd = SceneEnd.new(this.game)
-                this.game.replaceScene(sceneEnd)
-            }
-        }
     }
 
     debug() {}

@@ -1,16 +1,22 @@
 class Player extends GameImage {
-    constructor(game) {
+    constructor(game, scene) {
         super(game, 'player')
+        this.scene = scene
 
         this.setUp()
     }
 
+    static new(game, scene) {
+        const i = new this(game, scene)
+        return i
+    }
+
     setUp() {
-        this.speed = 10
+        this.speed = 5
         this.cooldown = 9
 
         this.bullets = BulletsFromPlayer.new(this.game)
-        this.addElement(this.bullets)
+        this.scene.addElement(this.bullets)
     }
 
     moveLeft() {
@@ -35,8 +41,8 @@ class Player extends GameImage {
 
             const x = this.x + this.width / 2
             const y = this.y
-            const b = Bullet.new(this.game)
-            b.x = x
+            const b = BulletFromPlayer.new(this.game)
+            b.x = x - b.width / 2
             b.y = y
 
             this.bullets.addBullet(b)
@@ -49,6 +55,11 @@ class Player extends GameImage {
         }
 
         this.bullets.update()
+    }
+
+    draw() {
+        super.draw()
+        this.bullets.draw()
     }
 
     debug() {

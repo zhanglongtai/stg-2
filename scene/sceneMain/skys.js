@@ -25,9 +25,9 @@ class Skys {
     update() {
         // sky downward
         for (const s of this.skyList) {
-            s.y -= 5
+            s.y += 5
             if(s.y > 600) {
-                s.x += this.interval * (this.skyNum - 1)
+                s.y -= this.interval * this.skyNum
             }
         }
     }

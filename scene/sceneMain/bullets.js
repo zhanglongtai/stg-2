@@ -15,15 +15,14 @@ class Bullets {
 
     draw() {
         for (const b of this.bulletList) {
-            const context = this.game.context
-            context.drawImage(b.texture, b.x, b.y)
+            b.draw()
         }
     }
 
     update() {
         let newList = this.bulletList.slice()
 
-        for (let i = 0; i < this.bulletList; i++) {
+        for (let i = 0; i < this.bulletList.length; i++) {
             const b = this.bulletList[i]
 
             if (b.alive) {
@@ -40,5 +39,22 @@ class Bullets {
 
     addBullet(bullet) {
         this.bulletList.push(bullet)
+    }
+}
+
+class BulletsFromPlayer extends Bullets {
+    constructor(game) {
+        super(game)
+    }
+}
+
+class BulletsFromEnemy extends Bullets {
+    constructor(game) {
+        super(game)
+    }
+
+    update() {
+        super.update()
+        // log(this.bulletList)
     }
 }

@@ -22,7 +22,8 @@ const enableDebugMode = function(game, enabled) {
 const __main = function() {
     const imgPath = {
         sky: 'img/space.svg',
-        bullet: 'img/bullet.png',
+        playerBullet: 'img/player_bullet.png',
+        enemyBullet: 'img/enemy_bullet.png',
         player: 'img/player.png',
         enemy0: 'img/enemy0.png',
         enemy1: 'img/enemy1.png',

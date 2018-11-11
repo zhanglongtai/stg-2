@@ -1,14 +1,18 @@
 const config = {
-    pipe_interval: {
-        _comment: '管子垂直间距',
-        value: 200,
-    },
-    pipe_space: {
-        _comment: '管子横向间距',
-        value: 150,
-    },
-    bird_speed: {
-        _comment: '小鸟的速度',
+    player_speed: {
+        _comment: '玩家速度',
         value: 5,
+    },
+    player_bullet_speed: {
+        _comment: '玩家子弹速度',
+        value: 10,
+    },
+    enemy_speed: {
+        _comment: '敌机速度',
+        value: 5,
+    },
+    enemy_bullet_speed: {
+        _comment: '敌机子弹速度',
+        value: 7,
     },
 }
