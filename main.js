@@ -21,19 +21,19 @@ const enableDebugMode = function(game, enabled) {
 
 const __main = function() {
     const imgPath = {
-        land: 'img/land.png',
-        sky: 'img/sky.png',
-        pipeUp: 'img/PipeUp.png',
-        pipeDown: 'img/PipeDown.png',
-        bird1: 'img/bird-01.png',
-        bird2: 'img/bird-02.png',
-        bird3: 'img/bird-03.png',
-        bird4: 'img/bird-04.png',
+        sky: 'img/space.svg',
+        bullet: 'img/bullet.png',
+        player: 'img/player.png',
+        enemy0: 'img/enemy0.png',
+        enemy1: 'img/enemy1.png',
+        enemy2: 'img/enemy2.png',
+        enemy3: 'img/enemy3.png',
+        enemy4: 'img/enemy4.png',
     }
 
     const game = Game.singleInstance(30, imgPath, (gameInstance) => {
-        // const scene = SceneMain.new(gameInstance)
-        const scene = SceneTitle.new(gameInstance)
+        const scene = SceneMain.new(gameInstance)
+        // const scene = SceneTitle.new(gameInstance)
         game.runWithScene(scene)
     })
 

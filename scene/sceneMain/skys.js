@@ -11,22 +11,23 @@ class Skys {
 
     setUp() {
         this.skyList = []
-        for (let i = 0; i < 3; i++) {
+        this.skyNum = 2
+        for (let i = 0; i < this.skyNum; i++) {
             const s = GameImage.new(this.game, 'sky')
-            s.width = s.texture.width
-            this.interval = s.width
-            s.x = i * s.width
-            s.y = 0
+            s.width = s.texture.height
+            this.interval = s.height
+            s.x = 0
+            s.y = -(i * s.height)
             this.skyList.push(s)
         }
     }
 
     update() {
-        // land forward
+        // sky downward
         for (const s of this.skyList) {
-            s.x -= 5
-            if(s.x < -300) {
-                s.x += this.interval * 3
+            s.y -= 5
+            if(s.y > 600) {
+                s.x += this.interval * (this.skyNum - 1)
             }
         }
     }

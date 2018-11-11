@@ -1,99 +1,57 @@
-class Player extends Animation {
+class Player extends GameImage {
     constructor(game) {
-        super(game)
+        super(game, 'player')
 
         this.setUp()
     }
 
     setUp() {
-        for (let i = 1; i < 4; i++) {
-            const name = `bird${i}`
-            const texture = this.game.textureByName(name)
-            this.animations['idle'].push(texture)
-        }
+        this.speed = 10
+        this.cooldown = 9
 
-        this.texture = this.frames()[0]
-        this.width = this.texture.width
-        this.height = this.texture.height
-
-        this.flipX = false
-        this.rotation = 0
-        this.accelerationY = 10
-        this.velocityY = 0
-
-        this.x = 100
-        this.y = 300
-        this.speed = 5
+        this.bullets = BulletsFromPlayer.new(this.game)
+        this.addElement(this.bullets)
     }
 
-    jump() {
-        this.velocityY = -10
-        this.rotation = -45
+    moveLeft() {
+        this.x -= this.speed
+    }
+
+    moveRight() {
+        this.x += this.speed
+    }
+
+    moveUp() {
+        this.y -= this.speed
+    }
+
+    moveDown() {
+        this.y += this.speed
+    }
+
+    fire() {
+        if (this.cooldown === 0) {
+            this.cooldown = 9
+
+            const x = this.x + this.width / 2
+            const y = this.y
+            const b = Bullet.new(this.game)
+            b.x = x
+            b.y = y
+
+            this.bullets.addBullet(b)
+        }
     }
 
     update() {
-        this.y += this.velocityY
-        this.velocityY += this.accelerationY * 0.1
-
-        const h = 475
-        if (this.y > h) {
-            this.y = h
+        if (this.cooldown > 0) {
+            this.cooldown -= 1
         }
 
-        if (this.rotation < 45) {
-            this.rotation += 5
-        }
-
-        this.frameCount -= 1
-        if (this.frameCount === 0) {
-            this.frameCount = 3
-            this.frameIndex = (this.frameIndex + 1) % this.frames().length
-            this.texture = this.frames()[this.frameIndex]
-        }
-    }
-
-    draw() {
-        const context = this.game.context
-
-        context.save()
-
-        const w = this.width / 2
-        const h = this.height / 2
-        
-        context.translate(this.x + w, this.y + h)
-
-        if (this.flipX) {
-            context.scale(-1, 1)
-        }
-        
-        context.rotate(this.rotation * Math.PI / 180)
-
-        context.translate(-w, -h)
-
-        context.drawImage(this.texture, 0, 0)
-
-        context.restore()
-    }
-
-    move(x, keyState) {
-        if (x < 0) {
-            this.flipX = true
-        } else if (x > 0)  {
-            this.flipX = false
-        }
-
-        this.x += x
-        // const animationState = {
-        //     keydown: 'run',
-        //     keyup: 'idle',
-        // }
-
-        // const state = animationState[keyState]
-
-        // this.changeAnimation(state)
+        this.bullets.update()
     }
 
     debug() {
-        this.speed = config.bird_speed.value
+        this.speed = config.player_speed.value
     }
 }
