@@ -22,8 +22,8 @@ class Bullet extends GameImage {
         // return rectIntersects(o, ball) || rectIntersects(ball, o)
         const a = this
         const b = spaceship
-        if (aInb(a.x, b.x, b.x + b.width) || aInb(b.x, a.x, a.x + a.width)) {
-            if (aInb(a.y, b.y, b.y + b.height) || aInb(b.y, a.y, a.y + a.height)) {
+        if (this.aInb(a.x, b.x, b.x + b.width) || this.aInb(b.x, a.x, a.x + a.width)) {
+            if (this.aInb(a.y, b.y, b.y + b.height) || this.aInb(b.y, a.y, a.y + a.height)) {
                 return true
             }
         }
@@ -54,6 +54,14 @@ class BulletFromPlayer extends Bullet {
 class BulletFromEnemy extends Bullet {
     constructor(game) {
         super(game, 'enemyBullet')
+
+        this.setUp()
+    }
+
+    setUp() {
+        super.setUp()
+
+        this.speed = 5
     }
 
     update() {

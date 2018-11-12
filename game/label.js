@@ -13,7 +13,7 @@ class Label {
 
     draw() {
         this.game.context.font = '20px Arial'
-        this.game.context.fillStyle = "black"
+        this.game.context.fillStyle = "white"
         this.game.context.fillText(this.text, this.x, this.y)
     }
 

@@ -11,10 +11,6 @@ class SceneTitle extends Scene {
         this.skys.update = () => {}
         this.addElement(this.skys)
 
-        this.lands = Lands.new(this.game)
-        this.lands.update = () => {}
-        this.addElement(this.lands)
-
         this.text = Label.new(this.game, 'press Enter to start game', 80, 220)
         this.addElement(this.text)
     }

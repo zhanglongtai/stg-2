@@ -2,6 +2,10 @@ class Animation {
     constructor(game) {
         this.game = game
 
+        this.setUp()
+    }
+
+    setUp() {
         this.animations = {
             idle: [],
         }

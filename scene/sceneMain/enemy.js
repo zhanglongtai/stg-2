@@ -21,7 +21,7 @@ class Enemy extends GameImage {
         this.y = -randomBetween(0, 200)
 
         this.speed = 5
-        this.cooldown = 10
+        this.cooldown = 60
 
         this.bullets = BulletsFromEnemy.new(this.game)
         this.scene.addElement(this.bullets)
@@ -68,5 +68,21 @@ class Enemy extends GameImage {
 
     debug() {
         this.speed = config.enemy_speed.value
+    }
+
+    aInb(x, x1, x2) {
+        return x >= x1 && x <= x2
+    }
+
+    collide(spaceship) {
+        // return rectIntersects(o, ball) || rectIntersects(ball, o)
+        const a = this
+        const b = spaceship
+        if (this.aInb(a.x, b.x, b.x + b.width) || this.aInb(b.x, a.x, a.x + a.width)) {
+            if (this.aInb(a.y, b.y, b.y + b.height) || this.aInb(b.y, a.y, a.y + a.height)) {
+                return true
+            }
+        }
+        return false
     }
 }

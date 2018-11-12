@@ -12,6 +12,7 @@ class Player extends GameImage {
     }
 
     setUp() {
+        this.alive = true
         this.speed = 5
         this.cooldown = 9
 
@@ -35,6 +36,10 @@ class Player extends GameImage {
         this.y += this.speed
     }
 
+    destroy() {
+        this.alive = false
+    }
+
     fire() {
         if (this.cooldown === 0) {
             this.cooldown = 9
@@ -55,11 +60,20 @@ class Player extends GameImage {
         }
 
         this.bullets.update()
+
+        if (!this.alive) {
+            setTimeout(() => {
+                const sceneEnd = SceneEnd.new(this.game)
+                this.game.replaceScene(sceneEnd)
+            }, window.fps*15)
+        }
     }
 
     draw() {
-        super.draw()
-        this.bullets.draw()
+        if (this.alive) {
+            super.draw()
+            this.bullets.draw()
+        }
     }
 
     debug() {

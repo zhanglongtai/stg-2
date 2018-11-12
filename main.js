@@ -22,19 +22,24 @@ const enableDebugMode = function(game, enabled) {
 const __main = function() {
     const imgPath = {
         sky: 'img/space.svg',
-        playerBullet: 'img/player_bullet.png',
-        enemyBullet: 'img/enemy_bullet.png',
-        player: 'img/player.png',
-        enemy0: 'img/enemy0.png',
-        enemy1: 'img/enemy1.png',
-        enemy2: 'img/enemy2.png',
-        enemy3: 'img/enemy3.png',
-        enemy4: 'img/enemy4.png',
+        playerBullet: 'img/player-bullet-small.png',
+        enemyBullet: 'img/enemy-bullet-small.png',
+        player: 'img/player-small.png',
+        enemy0: 'img/enemy0-small.png',
+        enemy1: 'img/enemy1-small.png',
+        enemy2: 'img/enemy2-small.png',
+        enemy3: 'img/enemy3-small.png',
+        enemy4: 'img/enemy4-small.png',
+        explosion1: 'img/explosion1-big.png',
+        explosion2: 'img/explosion2-big.png',
+        explosion3: 'img/explosion3-big.png',
+        explosion4: 'img/explosion4-big.png',
+        explosion5: 'img/explosion5-big.png',
     }
 
     const game = Game.singleInstance(30, imgPath, (gameInstance) => {
-        const scene = SceneMain.new(gameInstance)
-        // const scene = SceneTitle.new(gameInstance)
+        // const scene = SceneMain.new(gameInstance)
+        const scene = SceneTitle.new(gameInstance)
         game.runWithScene(scene)
     })
 

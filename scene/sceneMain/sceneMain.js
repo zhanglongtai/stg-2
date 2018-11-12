@@ -16,9 +16,12 @@ class SceneMain extends Scene {
         this.player.y = 500
         this.addElement(this.player)
 
-        this.enemyNum = 1
+        this.enemyNum = 5
         this.enemies = []
         this.addEnemies()
+
+        this.explosions = Explosions.new(this.game)
+        this.addElement(this.explosions)
     }
 
     addEnemies() {
@@ -60,12 +63,48 @@ class SceneMain extends Scene {
     update() {
         super.update()
 
-        for (const bullet of this.player.bullets) {
+        for (const bullet of this.player.bullets.bulletList) {
             for (const enemy of this.enemies) {
-                if (bullet.collide(enemy)) {
-                    bullet.destroy()
-                    enemy.destroy()
+                if (enemy.y > 0) {
+                    if (bullet.collide(enemy)) {
+                        const x = enemy.x
+                        const y = enemy.y
+
+                        bullet.destroy()
+                        enemy.destroy()
+
+                        const explosion = Explosion.new(this.game, x, y)
+                        this.explosions.addExplosion(explosion)
+                    }
                 }
+            }
+        }
+
+        for (const enemy of this.enemies) {
+            for (const bullet of enemy.bullets.bulletList) {
+                if (bullet.collide(this.player)) {
+                    const x = this.player.x
+                    const y = this.player.y
+
+                    bullet.destroy()
+                    this.player.destroy()
+
+                    const explosion = Explosion.new(this.game, x, y)
+                    this.explosions.addExplosion(explosion)
+                }
+            }
+        }
+
+        for (const enemy of this.enemies) {
+            if (enemy.collide(this.player)) {
+                const x = (this.player.x + enemy.x) / 2
+                const y = (this.player.y + enemy.y) / 2
+
+                enemy.destroy()
+                this.player.destroy()
+
+                const explosion = Explosion.new(this.game, x, y)
+                this.explosions.addExplosion(explosion)
             }
         }
     }

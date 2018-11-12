@@ -11,10 +11,6 @@ class SceneEnd extends Scene {
         this.skys.update = () => {}
         this.addElement(this.skys)
 
-        this.lands = Lands.new(this.game)
-        this.lands.update = () => {}
-        this.addElement(this.lands)
-
         this.text1 = Label.new(this.game, 'Game over', 150, 180)
         this.addElement(this.text1)
 
