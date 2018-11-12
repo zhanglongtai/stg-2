@@ -15,6 +15,7 @@ class Enemy extends GameImage {
     }
 
     setUp() {
+        this.alive = true
         this.speed = randomBetween(2, 5)
         this.x = randomBetween(0, 350)
         this.y = -randomBetween(0, 200)
@@ -26,21 +27,24 @@ class Enemy extends GameImage {
         this.scene.addElement(this.bullets)
     }
 
+    destroy() {
+        this.alive = false
+    }
+
     fire() {
         if (this.cooldown === 0) {
-            log('cooldown', this.cooldown)
             this.cooldown = 9
 
             if (this.y > 0) {
                 const r = Math.random()
-
+                
                 if (r < 0.5) {
                     const x = this.x + this.width / 2
                     const y = this.y
                     const b = BulletFromEnemy.new(this.game)
                     b.x = x - b.width / 2
                     b.y = y
-
+                
                     this.bullets.addBullet(b)
                 }
             }
@@ -48,7 +52,6 @@ class Enemy extends GameImage {
     }
 
     update() {
-        log('update', this.cooldown)
         if (this.cooldown > 0) {
             this.cooldown -= 1
         }
@@ -58,7 +61,7 @@ class Enemy extends GameImage {
         this.y += this.speed
         this.fire()
 
-        if (this.y > 600) {
+        if (this.y > 600 || !this.alive) {
             this.setUp()
         }
     }

@@ -59,6 +59,15 @@ class SceneMain extends Scene {
 
     update() {
         super.update()
+
+        for (const bullet of this.player.bullets) {
+            for (const enemy of this.enemies) {
+                if (bullet.collide(enemy)) {
+                    bullet.destroy()
+                    enemy.destroy()
+                }
+            }
+        }
     }
 
     debug() {}

@@ -55,6 +55,5 @@ class BulletsFromEnemy extends Bullets {
 
     update() {
         super.update()
-        // log(this.bulletList)
     }
 }
